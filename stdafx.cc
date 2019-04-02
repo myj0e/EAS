@@ -1,6 +1,7 @@
 #include"stdafx.h"
 #include<iostream>
 #include<cmath>
+#include<stdlib.h>
 
 using namespace std;
 
@@ -44,4 +45,5 @@ double math_func::result(double x){
 }
 //end function build
 
+//crossover
 double 
