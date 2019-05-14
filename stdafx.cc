@@ -1,9 +1,12 @@
 #include"stdafx.h"
 #include<iostream>
 #include<cmath>
-#include<stdlib.h>
-
+#include<cstdlib>
+#include<ctime>
 using namespace std;
+
+u64 rand64(unsigned int seed);
+
 
 // typedef struct parameter
 // {
@@ -38,7 +41,7 @@ double math_func::result(double x){
     int i=0;
     double sum=0;
     for(i=0;i<10;i++){
-        sum+=param[i]*pow(x,i);
+        sum+=param[i]*(pow(x,i));
     }
     
     return sum;
@@ -46,4 +49,26 @@ double math_func::result(double x){
 //end function build
 
 //crossover
-double 
+void crossver(double indivA,double indivB,double& newa,double& newb){
+    u64 templet=rand64(time((time_t *)NULL));
+    u64 a2b=(u64)indivA&templet;
+    u64 b2a=(u64)indivB&templet;
+    u64 a=(u64)indivA&(~templet);
+    u64 b=(u64)indivB&(~templet);
+    newa=(double)(a2b|b);
+    newb=(double)(b2a|a);
+}
+
+u64 rand64(unsigned int seed){
+    u64 uu64;
+    srand(time((time_t *)NULL)*(17+seed));
+    uu64.a=rand();
+    srand(time((time_t *)NULL)*(34+seed));
+    uu64.b=rand();
+    srand(time((time_t *)NULL)*(51+seed));
+    uu64.c=rand();
+    srand(time((time_t *)NULL)*(68+seed));
+    uu64.d=rand();
+    return uu64;
+
+}

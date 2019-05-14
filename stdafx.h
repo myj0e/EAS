@@ -1,6 +1,7 @@
 #ifndef STDAFX_H
 #define STDAFX_H
 
+#include"u8.h"
 //function class
 class math_func
 {
@@ -13,7 +14,7 @@ public:
 
 
 //crossover
-double crossver(double* indivA,double* indivB);
+void crossver(double indivA,double indivB,double& newa,double& newb);
 
 
 #endif
