@@ -99,3 +99,7 @@ int64 rand64(int seed){
     fclose(fp);
     return x[0]*x[1];
 }
+
+int64 mutation(int64 indiv){
+    int64 x=ran64(time((time_t*)NULL)*time((time_t*)NULL));
+}

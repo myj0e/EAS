@@ -2,7 +2,7 @@
 #include<string.h>
 
 typedef unsigned long long int64_t;
-
+using namespace std;
 
 void showbits(int64_t bit64){
     int64_t temp=1;
