@@ -1,7 +1,9 @@
 #ifndef STDAFX_H
 #define STDAFX_H
 
-#include"u8.h"
+
+typedef unsigned long long int64;
+
 //function class
 class math_func
 {
@@ -14,7 +16,10 @@ public:
 
 
 //crossover
-void crossver(double indivA,double indivB,double& newa,double& newb);
+void crossover(double indivA,double indivB,double* newa,double* newb);
+int64 rand64(int seed);
+void showbits(int64 bit64);
 
+#include"stdafx.cc"
 
 #endif
