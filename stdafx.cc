@@ -1,29 +1,14 @@
+#include<stdio.h>
 #include<iostream>
 #include<cmath>
-#include<cstdlib> 
-#include<ctime>
+#include<stdlib.h> 
+#include<windows.h>
+#include<unistd.h>
 using namespace std;
 
-double rand64(unsigned int seed);
 
 
-// typedef struct parameter
-// {
-//     int number;
-//     double x=0;
-//     parameter* next=NULL;
-// };
 
-
-//define a class, linked list & functions:init parameters;
-// class math_func
-// {
-// private:
-//     double param[10];    
-// public:
-//     math_func();
-//     double result(double x);
-// };
 
 //init functions
 math_func::math_func(){
@@ -36,16 +21,39 @@ math_func::math_func(){
 }
 
 //return function result
-double math_func::result(double x){
+double math_func::result(int64 x){
+    union{
+        int64 a;
+        double b;
+    }in;
+    in.a=x;
     int i=0;
     double sum=0;
     for(i=0;i<10;i++){
-        sum+=param[i]*(pow(x,i));
+        sum+=param[i]*(pow(in.b,i));
     }
     
     return sum;
 }
 //end function build
+
+indiv::indiv(int x){
+    if (x==0)
+    for(int i=0;i<100;i++){
+        val[i]=rand64(GetTickCount());
+    }
+}
+
+int64 indiv::show(int x){
+    if(x>=100)return 0;
+    return val[x];
+}
+
+void indiv::set(int64 value,int sub){
+    val[sub]=value;
+}
+
+
 
 
 void showbits(int64 bit64){
@@ -68,27 +76,21 @@ void showbits(int64 bit64){
 
 
 //crossover
-void crossover(double indivA,double indivB,double* newa,double* newb){
-    union indiv{
-        int64 a;
-        double b;
-    };
-    union indiv tmp,A,B,nA,nB;
-    int seed=(time((time_t *)NULL)*time((time_t *)NULL))%84992;
+void crossover(int64 indivA,int64 indivB,int64* newa,int64* newb){
+    int64 nB,nA;
+    int seed=(GetTickCount()*GetTickCount())%84992;
     int64 tmp0=rand64(seed);
     int64 rtmp0=~tmp0;
-    showbits(tmp0);
-    A.b=indivA;
-    B.b=indivB;
-    nB.a=(A.a&tmp0)|(B.a&rtmp0);
-    nA.a=(B.a&tmp0)|(A.a&rtmp0);
-    *newa=nA.b;
-    *newb=nB.b;
+    // showbits(tmp0);
+    nB=(indivA&tmp0)|(indivB&rtmp0);
+    nA=(indivB&tmp0)|(indivA&rtmp0);
+    *newa=nA;
+    *newb=nB;
 }
 
 int64 rand64(int seed){
     int64 x[2];
-    int pos=(time((time_t *)NULL)*time((time_t *)NULL)+seed)%84992;
+    int pos=(GetTickCount()+seed)%84992;
     FILE* fp=fopen("random","r");
     if(fp==NULL){
         printf("Open Error\n");
@@ -97,9 +99,23 @@ int64 rand64(int seed){
     fseek(fp,pos,SEEK_SET);
     fread(x,8,2,fp);
     fclose(fp);
+    Sleep(10);
     return x[0]*x[1];
 }
 
 int64 mutation(int64 indiv){
-    int64 x=ran64(time((time_t*)NULL)*time((time_t*)NULL));
+    int64 x=rand64(GetTickCount());
+    if(1&x){
+        int64 temp=1<<(rand64(GetTickCount())%64);
+        //printf("## 1 ##: ");
+        showbits(temp);
+        return (indiv|temp);
+    }
+    else{
+        int64 temp=~(1<<(rand64(GetTickCount())%64));
+        //printf("## 0 ##: ");
+        showbits(temp);
+        
+        return (indiv&temp);
+    }
 }

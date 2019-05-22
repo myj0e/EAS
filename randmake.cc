@@ -1,8 +1,11 @@
 #include<stdio.h>
 #include<string.h>
+#include<windows.h>
+#include<unistd.h>
 
 typedef unsigned long long int64_t;
 using namespace std;
+
 
 void showbits(int64_t bit64){
     int64_t temp=1;
@@ -23,7 +26,7 @@ void showbits(int64_t bit64){
 
 int main(){
     int64_t x[2];
-    int pos=0;
+    int pos=15;
     
     FILE* fp=fopen("random","r");
     if(fp==NULL){
@@ -33,10 +36,13 @@ int main(){
     //printf("%d\n",sizeof(fp));
     showbits(97996598797);
     while(pos>=0){
+        printf("1-- %lld ticks\n",GetTickCount());
         fseek(fp,pos,SEEK_SET);
-        scanf("%d",&pos);
+        printf("2-- %lld ticks\n",GetTickCount());
+        //scanf("%d",&pos);
         fread(x,8,2,fp);
         showbits(x[0]*x[1]);
+        Sleep(10);
     }
     fclose(fp);
 }
