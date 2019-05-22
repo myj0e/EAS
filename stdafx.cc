@@ -18,11 +18,13 @@ math_func::math_func(){
         cin>>param[x];
         x++;
     }
+    int A,B;
     cout<<"Please input your data boundary"<<endl;
-    cout<<"min:";
-    cin>>a;
-    cout<<"max:";
-    cin>>b;
+    printf("min: ");
+    scanf("%d",&A);
+    printf("max: ");
+    scanf("%d",&B);
+    a=A;b=B;
     if(a>b){
         printf("Error!Input error!\n");
     }
@@ -47,10 +49,13 @@ indiv::indiv(int x,math_func func){
     if (x==0)
     for(int i=0;i<100;i++){
         int64 ran=rand64(GetTickCount());
-        //showbits(ran);
-        val[i]=dtoi(checkwth(itod(ran),func.a,func.b));
-        //showbits(dtoi(val[i]));
-        //printf("\n");
+        // showbits(ran);
+        double ret=checkwth(itod(ran),func.a,func.b);
+        val[i]=dtoi(ret);
+        
+        // showbits(dtoi(val[i]));
+        // printf("%llf\n",val[i]);
+        // printf("up!\n");
     }
 }
 
@@ -134,7 +139,9 @@ int64 math_func::mutation(int64 indiv){
         
         x=(indiv&temp);
     }
-    return dtoi(checkwth(itod(x),a,b));
+    double ret=checkwth(itod(x),a,b);
+    //printf("%llf\n",ret);
+    return ret;
 }
 
 
@@ -171,21 +178,28 @@ int64 dtoi(double in){
 }
 
 double checkpcs(double in){
-    int z=(int)100*in;
-    if(!z) return checkpcs(in*10);
-    else return in;
+    while((in!=0)&&((int)(in*100)==0)){
+        in=in*100;
+    }
+    return in;
 }
 
 double checkwth(double in,double a,double b){
+    // // showbits(dtoi(in));
     double wth=b-a;
-    int zin=(int)in;
+    long long zin=(long long)in;
     int zwth=(int)wth;
     in=in-zin;
     //printf("%llf\n",in);
-    
     in=checkpcs(in);
-    if(!zwth)zin=zin%zwth;
+    if(zwth==0){
+        printf("%lf %lf\n",a,b);
+        printf("Boundary is to small.\n");
+        return 0;
+    }
+    zin=zin%zwth;
     in=(double)zin+in;
-    //showbits(dtoi(in));
+    // showbits(dtoi(in));
+    
     return in;
 }

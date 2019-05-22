@@ -37,11 +37,10 @@ double param[10]={15,0,2,0,0,0,0,0,0};
 //     return sum;
 // }
 int main(){
-    unsigned long long x;
-    double y=1.1;
-    x=y;
-    y=x;
-    cout<<x<<"  "<<y<<endl;
+    int x,y;
+    x=-1001;
+    y=25;
+    printf("%d\n",x%y);
 }
 
 

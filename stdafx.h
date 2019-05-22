@@ -24,8 +24,8 @@ private:
     double param[10];
   
 public:
-    double a;
-    double b;  
+    int a;
+    int b;  
     math_func();
     double result(int64 x);
     int64 mutation(int64 indiv);

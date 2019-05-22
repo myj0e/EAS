@@ -24,6 +24,9 @@ int main(){
     indiv Fath(0,func);
     indiv Chld(1,func);
     
+    // for(int i=0;i<100;i++){
+    //     printf("%llf\n",Fath.show(i));
+    // }
 
     
     for(int i=1;i<N;i++){
@@ -32,6 +35,7 @@ int main(){
         
         for(int j=0;j<100;j++){
             fit+= func.result(Fath.show(j))/100;
+            //printf("%llf\n",fit);
             if(func.result(Fath.show(j))<func.result(dtoi(best))) best=itod(Fath.show(j));
         }
         
@@ -52,14 +56,15 @@ int main(){
                 Chld.set(retB,++j);
                 printf("crossover                Courrent data is : ");
                 showbits_rt(retA);
+                // printf("stop\n");
                 printf("crossover                Courrent data is : ");
                 showbits_rt(retB);
             }
             else {
                 
                 Chld.set(func.mutation(Fath.show(j)),j);
-                
                 printf("mutation                 Courrent data is : ");
+                
                 showbits_rt(Chld.show(j));
             }
         }
@@ -74,5 +79,6 @@ int main(){
     }
     cout<<"The best of individual of generation  "<<N<<" is ";
     showbits(dtoi(best));
+    printf("%llf\n",best);
     cout<<"best result is "<<func.result(dtoi(best));
 }
