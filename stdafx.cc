@@ -13,7 +13,7 @@ using namespace std;
 //init functions
 math_func::math_func(){
     int x=0;
-    while(x!=3){
+    while(x!=10){
         cout<<"Please input the parameter of X^"<<x<<" (default:0)"<<endl;
         cin>>param[x];
         x++;
