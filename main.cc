@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
-#include"stdafx.h"
+#include"GAS.h"
 //using namespace std;
 
 

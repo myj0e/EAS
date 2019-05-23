@@ -44,6 +44,6 @@ public:
 
 
 
-#include"stdafx.cc"
+#include"GAS.cc"
 
 #endif
