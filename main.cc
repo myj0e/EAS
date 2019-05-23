@@ -34,12 +34,13 @@ int main(){
         double best=itod(Fath.show(0));
         
         for(int j=0;j<100;j++){
-            fit+= func.result(Fath.show(j))/100;
-            //printf("%llf\n",fit);
+            fit+=(func.result(Fath.show(j))/100);
+            //printf("#%llf   %llf\n",fit,Fath.show(j));
             if(func.result(Fath.show(j))<func.result(dtoi(best))) best=itod(Fath.show(j));
         }
         
-        fit=(fit+func.result(dtoi(best)))/2;
+        // fit=(fit+func.result(dtoi(best)))/2;
+        
         for(int j=0;j<100;j++){
             //printf("tag111\n");
             if (func.result(Fath.show(j))<fit){
@@ -64,11 +65,14 @@ int main(){
                 
                 Chld.set(func.mutation(Fath.show(j)),j);
                 printf("mutation                 Courrent data is : ");
-                
                 showbits_rt(Chld.show(j));
+                
             }
         }
-        printf("The best of individual of generation %3d is ",i);showbits(dtoi(best));
+        printf("The best of individual of generation %3d is ",i);
+        
+        showbits(dtoi(best));
+        //printf("-----------%llf-----------",fit);
         Fath=Chld;
     }
     double best=itod(Fath.show(0));
@@ -79,6 +83,6 @@ int main(){
     }
     cout<<"The best of individual of generation  "<<N<<" is ";
     showbits(dtoi(best));
-    printf("%llf\n",best);
+    printf("best:%llf\n",best);
     cout<<"best result is "<<func.result(dtoi(best));
 }

@@ -51,6 +51,7 @@ indiv::indiv(int x,math_func func){
         int64 ran=rand64(GetTickCount());
         // showbits(ran);
         double ret=checkwth(itod(ran),func.a,func.b);
+        // printf("%llf",ret);
         val[i]=dtoi(ret);
         
         // showbits(dtoi(val[i]));
@@ -178,28 +179,39 @@ int64 dtoi(double in){
 }
 
 double checkpcs(double in){
-    while((in!=0)&&((int)(in*100)==0)){
+    while((in!=0)&&((int64_t)(in*100)==0)){
         in=in*100;
+    }
+    while(abs(in)>100000000){
+        in=in/100;
     }
     return in;
 }
 
 double checkwth(double in,double a,double b){
-    // // showbits(dtoi(in));
-    double wth=b-a;
-    long long zin=(long long)in;
-    int zwth=(int)wth;
-    in=in-zin;
-    //printf("%llf\n",in);
-    in=checkpcs(in);
-    if(zwth==0){
-        printf("%lf %lf\n",a,b);
-        printf("Boundary is to small.\n");
-        return 0;
+    while(in<a||in>b){
+        // showbits(dtoi(in));
+        in=checkpcs(in);
+        double wth=b-a;
+        long long zin=(long long)in;
+        int zwth=(int)wth;
+        in=in-zin;
+        
+        //printf("%llf\n",in);
+        
+        if(zwth==0){
+            printf("%lf %lf\n",a,b);
+            printf("Boundary is to small.\n");
+            return 0;
+        }
+        zin=zin%zwth;
+        if(zin+in<0)in=zin+in+b;
+        if(zin+in>=0)in=zin+in+a;
+        
+        
+        // showbits(dtoi(in));
     }
-    zin=zin%zwth;
-    in=(double)zin+in;
-    // showbits(dtoi(in));
-    
+    // printf("new in:%llf\n",in);
     return in;
 }
+

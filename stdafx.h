@@ -21,11 +21,11 @@ double checkwth(double in,double a,double b);
 class math_func
 {
 private:
-    double param[10];
+    double param[10]={0};
   
 public:
-    int a;
-    int b;  
+    double a;
+    double b;  
     math_func();
     double result(int64 x);
     int64 mutation(int64 indiv);
